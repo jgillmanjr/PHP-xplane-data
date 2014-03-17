@@ -1,4 +1,4 @@
 PHP-xplane-data
 ===============
 
-A library to parse UDP sentences from X-Plane 10
+A PHP library to communicate with X-Plane 10 via UDP
