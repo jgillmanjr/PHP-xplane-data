@@ -1,5 +1,7 @@
 <?php
 namespace FreedomForged\XPlaneData;
+require('dataLabels.php');
+
 	/**
 	 *
 	 * X-Plane 10 UDP Parsing class for dummies (or something)
@@ -47,7 +49,7 @@ namespace FreedomForged\XPlaneData;
 		 * Pull all the available dataz
 		 *
 		 */
-		public function getRawData()
+		public function getData()
 		{
 			/**
 			 * The creation and closing of the socket at the time of the method call is required.
@@ -74,10 +76,10 @@ namespace FreedomForged\XPlaneData;
 			{
 				$format = $formatBase;
 			}
-			$dataArray = unpack($format, $pkg);
+			$rawData = unpack($format, $pkg);
 
 			socket_close($this->sock);
-			return $dataArray;
+			return convertToLabels($rawData);
 		}
 	}
 ?>
