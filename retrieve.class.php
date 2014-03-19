@@ -25,10 +25,10 @@ namespace FreedomForged\XPlaneData;
 
 		/**
 		 *
-		 * @var resource $sockServ The created socket resource
+		 * @var resource $sock The created socket resource
 		 *
 		 */
-		private $sockServ;
+		private $sock;
 
 		/**
 		 *
@@ -39,12 +39,6 @@ namespace FreedomForged\XPlaneData;
 		{
 			$this->listenAddr = $listenAddr;
 			$this->listenPort = $listenPort;
-
-			$this->sockServ = stream_socket_server('udp://' . $this->listenAddr . ':' . $this->listenPort, $errno, $errstr, STREAM_SERVER_BIND);
-			if (!$this->sockServ) 
-			{
-				die("$errstr ($errno)");
-			}
 		}
 
 		/**
@@ -55,7 +49,15 @@ namespace FreedomForged\XPlaneData;
 		 */
 		public function getRawData()
 		{
-			$pkg = stream_socket_recvfrom($this->sockServ, 65500);
+			/**
+			 * The creation and closing of the socket at the time of the method call is required.
+			 * If this isn't done, the socket queue fills up, so subsequent calls will show stale data.
+			 * If someone can figure out a more elegant way of doing this, please let me know!
+			 */
+			$this->sock = socket_create(AF_INET, SOCK_DGRAM, 17); // 17 == udp
+			socket_bind($this->sock, $this->listenAddr, $this->listenPort);
+			$pkgSize = socket_recv($this->sock, $pkg, 65500, 0); // Flags param is required. Send it 0 to indicate no flags?
+
 			$sentenceCount = (strlen($pkg) - 5) / 36;
 			$formatBase = '@5/Isentence 1/@9/f8data 1 - ';
 
@@ -74,8 +76,8 @@ namespace FreedomForged\XPlaneData;
 			}
 			$dataArray = unpack($format, $pkg);
 
+			socket_close($this->sock);
 			return $dataArray;
-			$this->sockServ = NULL;
 		}
 	}
 ?>
