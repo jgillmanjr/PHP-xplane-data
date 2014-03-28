@@ -35,6 +35,7 @@ namespace FreedomForged\XPlaneData;
 		$sentenceLabels = $GLOBALS['sentenceLabels'];
 		$messageLabels = $GLOBALS['messageLabels'];
 		$shiftCounter = 1;
+		$labeledArray = array();
 
 		while(!is_null($currentData = array_shift($rawData)))
 		{
