@@ -14,6 +14,17 @@ namespace FreedomForged\XPlaneData;
 	$sentenceLabels[1] = 'Times';
 	$sentenceLabels[2] = 'Sim Stats';
 	$sentenceLabels[3] = 'Speeds';
+	$sentenceLabels[4] = 'Mach / VVI / G-Load';
+	$sentenceLabels[5] = 'Atmosphere: Weather';
+	$sentenceLabels[6] = 'Atmosphere: Aircraft';
+	$sentenceLabels[7] = 'System Pressures';
+	$sentenceLabels[8] = 'Joystick Ail / Elev / Rud';
+	$sentenceLabels[9] = 'Other Flight Controls';
+	$sentenceLabels[10] = 'Artificial Stab Ail / Elev / Rud';
+	$sentenceLabels[11] = 'Flight Controls Ail / Elev/ Rud';
+	$sentenceLabels[12] = 'Wing Sweep / Thrust Vector';
+	$sentenceLabels[13] = 'Trim / Flaps / Slats / Speed Brakes';
+	$sentenceLabels[14] = 'Speeds';
 
 	/**
 	 * $messageLabels[$sentenceId] = array('Label 1', 'Label 2' , 'Label 3', 'Label 4', 'Label 5', 'Label 6', 'Label 7', 'Label 8')
